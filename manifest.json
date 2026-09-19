@@ -1,0 +1,12 @@
+{
+    "display_name": "Planner → Writer",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "WillyPillow",
+    "version": "1.0.0",
+    "homePage": "https://github.com/WillyPillow/sillytavern-planner",
+    "generate_interceptor": "plannerWriterInterceptor"
+}

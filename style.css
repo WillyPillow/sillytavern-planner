@@ -1,0 +1,64 @@
+#pw_settings .pw_section {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--SmartThemeBorderColor, rgba(128, 128, 128, 0.3));
+}
+
+#pw_settings h4 {
+    margin: 4px 0 8px;
+}
+
+#pw_settings label {
+    margin-top: 6px;
+}
+
+#pw_settings .checkbox_label {
+    margin: 4px 0;
+}
+
+#pw_settings textarea,
+#pw_settings select,
+#pw_settings input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#pw_settings .flex-container > .flex1 {
+    min-width: 0;
+}
+
+#pw_settings .pw_hint {
+    display: block;
+    opacity: 0.7;
+    margin: 2px 0 6px;
+}
+
+#pw_settings .pw_warning {
+    color: var(--warning, #ff6b6b);
+    margin: 4px 0;
+}
+
+#pw_settings .pw_status {
+    margin-top: 6px;
+    opacity: 0.85;
+}
+
+#pw_settings .menu_button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pw_plan_popup {
+    text-align: left;
+}
+
+.pw_plan_popup_header {
+    opacity: 0.7;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.pw_plan_popup_body {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
