@@ -1,0 +1,175 @@
+<div id="pw_settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>Planner → Writer</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <label class="checkbox_label" for="pw_enabled">
+                <input id="pw_enabled" type="checkbox" />
+                <span>Enabled</span>
+            </label>
+            <small class="pw_hint">Before each reply, the planner model drafts what should happen next. The plan is injected into the prompt, and your main connection (the writer) writes the reply.</small>
+
+            <div class="pw_section">
+                <h4>Planner</h4>
+                <label for="pw_profile">Planner connection profile</label>
+                <select id="pw_profile" class="text_pole"></select>
+                <small class="pw_hint">Profiles come from the Connection Profiles panel (API, model, preset, and instruct template for text completion). Leave unselected to plan with the current connection, i.e. the writer plans for itself.</small>
+                <div id="pw_profile_warning" class="pw_warning">The Connection Manager extension is disabled or unavailable. Enable it to pick a planner profile.</div>
+
+                <label for="pw_max_tokens">Planner max response tokens</label>
+                <input id="pw_max_tokens" type="number" class="text_pole" min="1" step="1" />
+                <small class="pw_hint">Reasoning models need headroom for their thinking here.</small>
+
+                <div class="flex-container justifyspacebetween alignitemscenter">
+                    <label for="pw_planner_prompt">Planner instructions (system prompt)</label>
+                    <i class="editor_maximize fa-solid fa-maximize right_menu_button" data-for="pw_planner_prompt" title="Expand the editor"></i>
+                </div>
+                <textarea id="pw_planner_prompt" class="text_pole textarea_compact" rows="10"></textarea>
+
+                <label for="pw_request">Request for a normal reply</label>
+                <textarea id="pw_request" class="text_pole textarea_compact" rows="2"></textarea>
+
+                <label for="pw_request_continue">Request when continuing a reply</label>
+                <textarea id="pw_request_continue" class="text_pole textarea_compact" rows="3"></textarea>
+
+                <div id="pw_restore_prompts" class="menu_button menu_button_icon">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Restore default prompts</span>
+                </div>
+            </div>
+
+            <div class="pw_section">
+                <h4>Context sent to the planner</h4>
+                <label class="checkbox_label" for="pw_include_card">
+                    <input id="pw_include_card" type="checkbox" />
+                    <span>Character description, personality and scenario</span>
+                </label>
+                <label class="checkbox_label" for="pw_include_persona">
+                    <input id="pw_include_persona" type="checkbox" />
+                    <span>User persona</span>
+                </label>
+                <label class="checkbox_label" for="pw_include_wi">
+                    <input id="pw_include_wi" type="checkbox" />
+                    <span>Active World Info / lorebook entries</span>
+                </label>
+                <label class="checkbox_label" for="pw_include_summary">
+                    <input id="pw_include_summary" type="checkbox" />
+                    <span>Summary from the Summarize extension</span>
+                </label>
+                <label class="checkbox_label" for="pw_include_an">
+                    <input id="pw_include_an" type="checkbox" />
+                    <span>Author's Note</span>
+                </label>
+
+                <label for="pw_history_format">Chat history format</label>
+                <select id="pw_history_format" class="text_pole">
+                    <option value="transcript">One transcript block in a single user message (recommended)</option>
+                    <option value="messages">Separate user / assistant messages</option>
+                </select>
+
+                <div class="flex-container">
+                    <div class="flex1">
+                        <label for="pw_history_messages">Max history messages</label>
+                        <input id="pw_history_messages" type="number" class="text_pole" min="0" step="1" />
+                        <small class="pw_hint">0 = no limit</small>
+                    </div>
+                    <div class="flex1">
+                        <label for="pw_history_tokens">History token budget</label>
+                        <input id="pw_history_tokens" type="number" class="text_pole" min="0" step="1" />
+                        <small class="pw_hint">0 = the writer's context size</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pw_section">
+                <h4>Injecting the plan into the writer prompt</h4>
+                <div class="flex-container justifyspacebetween alignitemscenter">
+                    <label for="pw_inject_template">Injection template (<code>\{{plan}}</code> is replaced with the plan)</label>
+                    <i class="editor_maximize fa-solid fa-maximize right_menu_button" data-for="pw_inject_template" title="Expand the editor"></i>
+                </div>
+                <textarea id="pw_inject_template" class="text_pole textarea_compact" rows="3"></textarea>
+
+                <div class="flex-container">
+                    <div class="flex1">
+                        <label for="pw_inject_position">Position</label>
+                        <select id="pw_inject_position" class="text_pole">
+                            <option value="1">In chat at depth</option>
+                            <option value="0">After the main prompt / story string</option>
+                            <option value="2">Before the main prompt / story string</option>
+                        </select>
+                    </div>
+                    <div class="flex1">
+                        <label for="pw_inject_depth">Depth</label>
+                        <input id="pw_inject_depth" type="number" class="text_pole" min="0" step="1" />
+                    </div>
+                    <div class="flex1">
+                        <label for="pw_inject_role">Role</label>
+                        <select id="pw_inject_role" class="text_pole">
+                            <option value="0">System</option>
+                            <option value="1">User</option>
+                            <option value="2">Assistant</option>
+                        </select>
+                    </div>
+                </div>
+                <small class="pw_hint">Depth 0 places the plan right before the writer's turn, which works best for most models.</small>
+            </div>
+
+            <div class="pw_section">
+                <h4>Behavior</h4>
+                <label class="checkbox_label" for="pw_reuse_on_swipe">
+                    <input id="pw_reuse_on_swipe" type="checkbox" />
+                    <span>Reuse the previous plan on swipe / regenerate (otherwise a fresh plan is drafted)</span>
+                </label>
+                <label class="checkbox_label" for="pw_run_on_continue">
+                    <input id="pw_run_on_continue" type="checkbox" />
+                    <span>Also plan when continuing a reply</span>
+                </label>
+                <label for="pw_on_error">If the planner fails</label>
+                <select id="pw_on_error" class="text_pole">
+                    <option value="continue">Write the reply without a plan</option>
+                    <option value="abort">Abort the generation</option>
+                </select>
+                <label class="checkbox_label" for="pw_notifications">
+                    <input id="pw_notifications" type="checkbox" />
+                    <span>Show notifications while planning</span>
+                </label>
+                <label class="checkbox_label" for="pw_store_on_message">
+                    <input id="pw_store_on_message" type="checkbox" />
+                    <span>Store each plan on the reply it produced (adds a clipboard button under the message actions)</span>
+                </label>
+            </div>
+
+            <div class="pw_section">
+                <h4>Plan</h4>
+                <label for="pw_guidance">Guidance for the planner (this chat only)</label>
+                <textarea id="pw_guidance" class="text_pole textarea_compact" rows="2" placeholder="e.g. Keep the tone light. The stranger is secretly the prince; don't reveal it yet."></textarea>
+
+                <div class="flex-container justifyspacebetween alignitemscenter">
+                    <label for="pw_plan">Current plan</label>
+                    <i class="editor_maximize fa-solid fa-maximize right_menu_button" data-for="pw_plan" title="Expand the editor"></i>
+                </div>
+                <textarea id="pw_plan" class="text_pole textarea_compact" rows="8" placeholder="The most recent plan appears here. You can edit it and pin it for the next reply."></textarea>
+
+                <div class="flex-container">
+                    <div id="pw_generate" class="menu_button menu_button_icon" title="Run the planner now without generating a reply">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Draft plan now</span>
+                    </div>
+                    <div id="pw_use_next" class="menu_button menu_button_icon" title="Use the plan above for the next reply instead of calling the planner">
+                        <i class="fa-solid fa-thumbtack"></i>
+                        <span>Use for next reply</span>
+                    </div>
+                    <div id="pw_clear" class="menu_button menu_button_icon" title="Clear the plan and unpin it">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>Clear</span>
+                    </div>
+                </div>
+                <div id="pw_pending_status" class="pw_status"><i class="fa-solid fa-thumbtack"></i> Pinned: the next reply will use this plan instead of calling the planner.</div>
+                <div id="pw_planning_indicator" class="pw_status"><i class="fa-solid fa-spinner fa-spin"></i> Planning…</div>
+                <small class="pw_hint">Slash commands: <code>/plan</code>, <code>/plan-set</code>, <code>/plan-clear</code>, <code>/planner on|off</code>. Macro: <code>\{{lastPlan}}</code>.</small>
+            </div>
+        </div>
+    </div>
+</div>
